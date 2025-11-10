@@ -8,7 +8,7 @@ import {
   Stack,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Work, CalendarToday, LocationOn } from '@mui/icons-material';
+import { CalendarToday, LocationOn } from '@mui/icons-material';
 import { cvData } from '@/data/cvData';
 
 const MotionBox = motion(Box);

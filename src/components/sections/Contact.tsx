@@ -93,7 +93,7 @@ const Contact = () => {
               lineHeight: 1.8,
             }}
           >
-            I'm currently open to new opportunities and collaborations. Feel free to reach out!
+            Feel free to reach out!
           </Typography>
 
           <Grid container spacing={3} sx={{ mb: 6 }}>
