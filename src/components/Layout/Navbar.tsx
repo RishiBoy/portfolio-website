@@ -84,7 +84,8 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
         sx={{
           backgroundColor: trigger
             ? theme.palette.background.paper
-            : 'transparent',
+            : 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(10px)',
           transition: 'all 0.3s ease',
         }}
       >
@@ -106,11 +107,26 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
 
           {isMobile ? (
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton onClick={onToggleTheme} color="inherit">
+              <IconButton 
+                onClick={onToggleTheme} 
+                sx={{ 
+                  color: 'text.primary',
+                  backgroundColor: 'action.hover',
+                  '&:hover': {
+                    backgroundColor: 'action.selected',
+                  }
+                }}
+              >
                 {darkMode ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
               <IconButton
-                color="inherit"
+                sx={{ 
+                  color: 'text.primary',
+                  backgroundColor: 'action.hover',
+                  '&:hover': {
+                    backgroundColor: 'action.selected',
+                  }
+                }}
                 aria-label="open drawer"
                 edge="end"
                 onClick={handleDrawerToggle}
@@ -134,7 +150,16 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
                   {item.label}
                 </Button>
               ))}
-              <IconButton onClick={onToggleTheme} color="inherit">
+              <IconButton 
+                onClick={onToggleTheme} 
+                sx={{ 
+                  color: 'text.primary',
+                  backgroundColor: 'action.hover',
+                  '&:hover': {
+                    backgroundColor: 'action.selected',
+                  }
+                }}
+              >
                 {darkMode ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
             </Box>
