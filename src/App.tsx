@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import {ThemeProvider, CssBaseline, Box} from '@mui/material';
 import { lightTheme, darkTheme } from '@/theme/theme';
 import Layout from '@/components/Layout/Layout';
 import Hero from '@/components/sections/Hero';
@@ -21,14 +21,16 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout darkMode={darkMode} onToggleTheme={toggleTheme}>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Education />
-        <Contact />
-      </Layout>
+      <Box sx={{ overflowX: 'hidden', width: '100%' }}>
+        <Layout darkMode={darkMode} onToggleTheme={toggleTheme}>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Education />
+          <Contact />
+        </Layout>
+      </Box>
     </ThemeProvider>
   );
 }

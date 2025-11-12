@@ -51,10 +51,12 @@ const Hero = () => {
       id="hero"
       sx={{
         minHeight: '100vh',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
+        overflowX: 'hidden',
         background: (theme) =>
           theme.palette.mode === 'dark'
             ? 'linear-gradient(135deg, #0A1929 0%, #132F4C 100%)'
@@ -76,8 +78,8 @@ const Hero = () => {
           position: 'absolute',
           top: '10%',
           right: '5%',
-          width: 400,
-          height: 400,
+          width: { xs: 250, md: 400 },
+          height: { xs: 250, md: 400 },
           borderRadius: '50%',
           background: 'linear-gradient(45deg, #2196F3 30%, #00BCD4 90%)',
           opacity: 0.1,
@@ -99,8 +101,8 @@ const Hero = () => {
           position: 'absolute',
           bottom: '10%',
           left: '0%',
-          width: 500,
-          height: 500,
+          width: { xs: 300, md: 500 },
+          height: { xs: 300, md: 500 },
           borderRadius: '50%',
           background: 'linear-gradient(45deg, #FF4081 30%, #2196F3 90%)',
           opacity: 0.1,
@@ -125,13 +127,14 @@ const Hero = () => {
           }}
           sx={{
             position: 'absolute',
-            width: 20 + i * 10,
-            height: 20 + i * 10,
+            width: { xs: 15 + i * 5, md: 20 + i * 10 },
+            height: { xs: 15 + i * 5, md: 20 + i * 10 },
             borderRadius: i % 2 === 0 ? '50%' : '20%',
             background: `linear-gradient(45deg, ${i % 2 === 0 ? '#2196F3' : '#00BCD4'} 30%, ${i % 2 === 0 ? '#00BCD4' : '#2196F3'} 90%)`,
             opacity: 0.15,
             top: `${10 + i * 15}%`,
             left: `${5 + i * 15}%`,
+            display: { xs: i > 3 ? 'none' : 'block', md: 'block' },
           }}
         />
       ))}
