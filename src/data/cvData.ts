@@ -4,7 +4,7 @@ export const cvData: CVData = {
   personalInfo: {
     name: 'Rishitha Fernando',
     title: 'Full Stack Software Engineer',
-    tagline: 'Full-stack Engineer building modern web applications with React, TypeScript, Node.js & Azure AI',
+    tagline: 'const developer = { skills: [\'React\', \'TS\', \'Node\', \'MUI\', \'Azure\', \'AI\'], mode: \'production\', since: 2018 };',
     summary: 'Full-stack software engineer with 2+ years of production experience at FUTR AI, a VC-backed chatbot startup in London. Specialized in building real-time chat systems, AI agents, and scalable web applications for clients including UK police, healthcare, and retail sectors.',
     contact: {
       email: 'rishithadivanfdo@gmail.com',
