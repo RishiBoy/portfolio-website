@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {ThemeProvider, CssBaseline, Box} from '@mui/material';
 import { lightTheme, darkTheme } from '@/theme/theme';
 import Layout from '@/components/Layout/Layout';
@@ -10,7 +10,23 @@ import Education from '@/components/sections/Education';
 import Contact from '@/components/sections/Contact';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') return saved === 'dark';
+    } catch {
+      /* storage unavailable */
+    }
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    } catch {
+      /* storage unavailable */
+    }
+  }, [darkMode]);
 
   const theme = useMemo(() => (darkMode ? darkTheme : lightTheme), [darkMode]);
 

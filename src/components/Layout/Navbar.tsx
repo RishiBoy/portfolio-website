@@ -84,7 +84,9 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
         sx={{
           backgroundColor: trigger
             ? theme.palette.background.paper
-            : 'rgba(255, 255, 255, 0.8)',
+            : darkMode
+              ? 'rgba(10, 25, 41, 0.8)'
+              : 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(10px)',
           transition: 'all 0.3s ease',
         }}

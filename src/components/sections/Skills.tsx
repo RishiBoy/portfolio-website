@@ -1,12 +1,24 @@
-import { Box, Container, Typography, Grid, Chip, Paper } from '@mui/material';
+import { Box, Container, Typography, Grid, Chip, Paper, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { cvData } from '@/data/cvData';
+import { getSkillIcon, categoryIcons } from '@/utils/skillIcons';
+
+// Lighten dark brand colours so the logos stay visible on the dark theme.
+const forTheme = (hex: string, isDark: boolean): string => {
+  if (!isDark) return hex;
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  if (luminance > 0.45) return hex;
+  const mix = (c: number) => Math.round(c + (255 - c) * 0.5);
+  return `rgb(${mix(r)}, ${mix(g)}, ${mix(b)})`;
+};
 
 const MotionBox = motion(Box);
 const MotionPaper = motion(Paper);
 
 const Skills = () => {
   const { skills } = cvData;
+  const theme = useTheme();
 
   return (
     <Box
@@ -64,32 +76,51 @@ const Skills = () => {
                     },
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      mb: 2,
-                      fontWeight: 600,
-                      color: 'primary.main',
-                    }}
-                  >
-                    {skillGroup.category}
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                    {(() => {
+                      const CategoryIcon = categoryIcons[skillGroup.category];
+                      return <CategoryIcon size={26} color={theme.palette.primary.main} aria-hidden />;
+                    })()}
+                    <Typography
+                      variant="h6"
+                      sx={{ fontWeight: 600, color: 'primary.main' }}
+                    >
+                      {skillGroup.category}
+                    </Typography>
+                  </Box>
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                    {skillGroup.skills.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        size="small"
-                        sx={{
-                          backgroundColor: 'primary.main',
-                          color: 'white',
-                          fontWeight: 500,
-                          '&:hover': {
-                            backgroundColor: 'primary.dark',
-                          },
-                        }}
-                      />
-                    ))}
+                    {skillGroup.skills.map((skill) => {
+                      const { Icon, color } = getSkillIcon(skill);
+                      return (
+                        <Chip
+                          key={skill}
+                          label={skill}
+                          icon={
+                            <Icon
+                              size={16}
+                              color={color ? forTheme(color, theme.palette.mode === 'dark') : theme.palette.text.primary}
+                              aria-hidden
+                            />
+                          }
+                          variant="outlined"
+                          sx={{
+                            height: 32,
+                            pl: 0.75,
+                            color: 'text.primary',
+                            backgroundColor: 'action.hover',
+                            borderColor: 'divider',
+                            fontWeight: 500,
+                            transition: 'all 0.2s ease',
+                            '& .MuiChip-icon': { ml: 0.5, mr: -0.25 },
+                            '&:hover': {
+                              borderColor: 'primary.main',
+                              backgroundColor: 'action.selected',
+                              transform: 'translateY(-2px)',
+                            },
+                          }}
+                        />
+                      );
+                    })}
                   </Box>
                 </MotionPaper>
               </Grid>

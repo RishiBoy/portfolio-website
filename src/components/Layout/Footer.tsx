@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Link, IconButton } from '@mui/material';
+import { Box, Container, Typography, Link, IconButton, Tooltip } from '@mui/material';
 import { LinkedIn, Email, Phone } from '@mui/icons-material';
 import { cvData } from '@/data/cvData';
 
@@ -32,32 +32,41 @@ const Footer = () => {
           </Typography>
 
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <IconButton
-              component={Link}
-              href={`https://${contact.linkedin}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              color="primary"
-              size="small"
-            >
-              <LinkedIn />
-            </IconButton>
-            <IconButton
-              component={Link}
-              href={`mailto:${contact.email}`}
-              color="primary"
-              size="small"
-            >
-              <Email />
-            </IconButton>
-            <IconButton
-              component={Link}
-              href={`tel:${contact.phone}`}
-              color="primary"
-              size="small"
-            >
-              <Phone />
-            </IconButton>
+            <Tooltip title="LinkedIn profile" arrow>
+              <IconButton
+                component={Link}
+                href={`https://${contact.linkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                color="primary"
+                size="small"
+              >
+                <LinkedIn />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={`Email ${contact.email}`} arrow>
+              <IconButton
+                component={Link}
+                href={`mailto:${contact.email}`}
+                aria-label={`Email ${contact.email}`}
+                color="primary"
+                size="small"
+              >
+                <Email />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={`Call ${contact.phone}`} arrow>
+              <IconButton
+                component={Link}
+                href={`tel:${contact.phone}`}
+                aria-label={`Call ${contact.phone}`}
+                color="primary"
+                size="small"
+              >
+                <Phone />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Box>
       </Container>

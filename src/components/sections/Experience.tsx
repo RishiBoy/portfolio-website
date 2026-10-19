@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Box,
   Container,
@@ -6,9 +7,10 @@ import {
   CardContent,
   Chip,
   Stack,
+  Button,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { CalendarToday, LocationOn } from '@mui/icons-material';
+import { CalendarToday, LocationOn, ExpandMore, ExpandLess, OpenInNew } from '@mui/icons-material';
 import { cvData } from '@/data/cvData';
 
 const MotionBox = motion(Box);
@@ -16,6 +18,12 @@ const MotionCard = motion(Card);
 
 const Experience = () => {
   const { experience } = cvData;
+  const RECENT_COUNT = 3;
+  const BULLETS_COLLAPSED = 4;
+  const [showEarlier, setShowEarlier] = useState(false);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const visibleExperience = showEarlier ? experience : experience.slice(0, RECENT_COUNT);
+  const hiddenCount = experience.length - RECENT_COUNT;
 
   return (
     <Box
@@ -68,7 +76,7 @@ const Experience = () => {
               }}
             />
 
-            {experience.map((exp, index) => (
+            {visibleExperience.map((exp, index) => (
               <MotionCard
                 key={exp.id}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -169,7 +177,10 @@ const Experience = () => {
                         Key Contributions:
                       </Typography>
                       <Box component="ul" sx={{ pl: 2, m: 0 }}>
-                        {exp.responsibilities.slice(0, 4).map((resp, idx) => (
+                        {(expanded[exp.id]
+                          ? exp.responsibilities
+                          : exp.responsibilities.slice(0, BULLETS_COLLAPSED)
+                        ).map((resp, idx) => (
                           <Typography
                             key={idx}
                             component="li"
@@ -181,6 +192,18 @@ const Experience = () => {
                           </Typography>
                         ))}
                       </Box>
+                      {exp.responsibilities.length > BULLETS_COLLAPSED && (
+                        <Button
+                          size="small"
+                          onClick={() => setExpanded((prev) => ({ ...prev, [exp.id]: !prev[exp.id] }))}
+                          endIcon={expanded[exp.id] ? <ExpandLess /> : <ExpandMore />}
+                          sx={{ mt: 1, px: 1 }}
+                        >
+                          {expanded[exp.id]
+                            ? 'Show less'
+                            : `Show ${exp.responsibilities.length - BULLETS_COLLAPSED} more`}
+                        </Button>
+                      )}
                     </Box>
                   )}
 
@@ -203,6 +226,32 @@ const Experience = () => {
                     </Box>
                   )}
 
+                  {exp.projects && exp.projects.some((p) => p.link) && (
+                    <Box sx={{ mt: 2 }}>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+                        Project links:
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {exp.projects
+                          .filter((p) => p.link)
+                          .map((p) => (
+                            <Chip
+                              key={p.name}
+                              component="a"
+                              href={p.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              clickable
+                              label={p.name}
+                              size="small"
+                              color="primary"
+                              icon={<OpenInNew />}
+                            />
+                          ))}
+                      </Box>
+                    </Box>
+                  )}
+
                   {exp.clients && exp.clients.length > 0 && (
                     <Box sx={{ mt: 2 }}>
                       <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
@@ -217,6 +266,18 @@ const Experience = () => {
               </MotionCard>
             ))}
           </Box>
+
+          {hiddenCount > 0 && (
+            <Box sx={{ textAlign: 'center', mt: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={() => setShowEarlier((v) => !v)}
+                endIcon={showEarlier ? <ExpandLess /> : <ExpandMore />}
+              >
+                {showEarlier ? 'Hide earlier roles' : `Show earlier roles (${hiddenCount})`}
+              </Button>
+            </Box>
+          )}
         </MotionBox>
       </Container>
     </Box>
