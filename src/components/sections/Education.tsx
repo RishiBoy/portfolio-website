@@ -71,7 +71,7 @@ const Education = () => {
                     },
                   }}
                 >
-                  <CardContent sx={{ p: 3 }}>
+                  <CardContent sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <Box
                       sx={{
                         display: 'flex',
@@ -101,6 +101,10 @@ const Education = () => {
                         fontWeight: 600,
                         mb: 1,
                         textAlign: 'center',
+                        minHeight: { md: '3em' },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       {edu.degree}
@@ -113,6 +117,10 @@ const Education = () => {
                         fontWeight: 500,
                         mb: 2,
                         textAlign: 'center',
+                        minHeight: { md: '3.4em' },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                       }}
                     >
                       {edu.institution}
@@ -151,7 +159,7 @@ const Education = () => {
                     {edu.field && (
                       <Box
                         sx={{
-                          mt: 2,
+                          mt: 'auto',
                           pt: 2,
                           borderTop: 1,
                           borderColor: 'divider',

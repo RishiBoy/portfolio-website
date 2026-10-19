@@ -5,6 +5,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Tooltip,
   Box,
   useScrollTrigger,
   Drawer,
@@ -60,9 +61,11 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
   const drawer = (
     <Box sx={{ width: 250, pt: 2 }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', px: 2, mb: 2 }}>
-        <IconButton onClick={handleDrawerToggle}>
-          <CloseIcon />
-        </IconButton>
+        <Tooltip title="Close menu" arrow>
+          <IconButton onClick={handleDrawerToggle} aria-label="Close menu">
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <List>
         {navItems.map((item) => (
@@ -92,6 +95,7 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Tooltip title="Back to top" arrow>
           <Typography
             variant="h6"
             component="div"
@@ -103,14 +107,19 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
               WebkitTextFillColor: 'transparent',
             }}
             onClick={() => scrollToSection('#hero')}
+            role="button"
+            aria-label="Back to top"
           >
             RF
           </Typography>
+          </Tooltip>
 
           {isMobile ? (
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton 
-                onClick={onToggleTheme} 
+              <Tooltip title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} arrow>
+<IconButton 
+                onClick={onToggleTheme}
+                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} 
                 sx={{ 
                   color: 'text.primary',
                   backgroundColor: 'action.hover',
@@ -121,7 +130,9 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
               >
                 {darkMode ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
-              <IconButton
+</Tooltip>
+              <Tooltip title="Open menu" arrow>
+<IconButton
                 sx={{ 
                   color: 'text.primary',
                   backgroundColor: 'action.hover',
@@ -129,12 +140,13 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
                     backgroundColor: 'action.selected',
                   }
                 }}
-                aria-label="open drawer"
+                aria-label="Open menu"
                 edge="end"
                 onClick={handleDrawerToggle}
               >
                 <MenuIcon />
               </IconButton>
+</Tooltip>
             </Box>
           ) : (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -152,8 +164,10 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
                   {item.label}
                 </Button>
               ))}
-              <IconButton 
-                onClick={onToggleTheme} 
+              <Tooltip title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} arrow>
+<IconButton 
+                onClick={onToggleTheme}
+                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} 
                 sx={{ 
                   color: 'text.primary',
                   backgroundColor: 'action.hover',
@@ -164,6 +178,7 @@ const Navbar = ({ darkMode, onToggleTheme }: NavbarProps) => {
               >
                 {darkMode ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
+</Tooltip>
             </Box>
           )}
         </Toolbar>
