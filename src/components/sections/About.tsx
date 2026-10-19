@@ -15,22 +15,22 @@ const highlights = [
   {
     icon: <Code fontSize="large" />,
     title: 'Full-Stack Development',
-    description: '2+ years building scalable web applications with React, TypeScript, and Node.js',
+    description: '8 years building scalable web applications with React, TypeScript, Node.js and Blazor/.NET',
   },
   {
     icon: <Cloud fontSize="large" />,
     title: 'Cloud & Azure',
-    description: 'Extensive experience with Azure services, serverless architecture, and real-time systems',
+    description: 'Azure AI Foundry, Communication Services (video calling), serverless and real-time SignalR systems',
   },
   {
     icon: <Psychology fontSize="large" />,
     title: 'AI Agent Development',
-    description: 'Building and optimizing AI agents using Azure AI Foundry for multi-agent orchestration',
+    description: 'Building AI agents with Azure AI Foundry that route conversations by context and intent',
   },
   {
     icon: <Groups fontSize="large" />,
     title: 'Team Leadership',
-    description: 'Led frontend engineering teams and collaborative projects at VC-backed startup',
+    description: 'Promoted to Senior Frontend Engineer; led front-end engineers at a VC-backed start-up',
   },
 ];
 
