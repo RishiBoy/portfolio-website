@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Grid, Chip, Paper, useTheme } from '@mui/material';
+import { Box, Container, Typography, Chip, Paper, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { cvData } from '@/data/cvData';
 import { getSkillIcon, categoryIcons } from '@/utils/skillIcons';
@@ -14,7 +14,6 @@ const forTheme = (hex: string, isDark: boolean): string => {
 };
 
 const MotionBox = motion(Box);
-const MotionPaper = motion(Paper);
 
 const Skills = () => {
   const { skills } = cvData;
@@ -56,39 +55,44 @@ const Skills = () => {
             }}
           />
 
-          <Grid container spacing={3}>
-            {skills.map((skillGroup, index) => (
-              <Grid item xs={12} sm={6} md={4} key={skillGroup.category}>
-                <MotionPaper
-                  initial={{ opacity: 0, y: 20 }}
+          <Paper
+            elevation={2}
+            sx={{ borderRadius: 3, overflow: 'hidden' }}
+          >
+            {skills.map((skillGroup, index) => {
+              const CategoryIcon = categoryIcons[skillGroup.category];
+              return (
+                <MotionBox
+                  key={skillGroup.category}
+                  initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  elevation={2}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                   sx={{
-                    p: 3,
-                    height: '100%',
-                    borderRadius: 3,
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: 6,
-                    },
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    alignItems: { md: 'flex-start' },
+                    gap: { xs: 1.5, md: 4 },
+                    p: { xs: 2.5, md: 3 },
+                    borderTop: index === 0 ? 'none' : '1px solid',
+                    borderColor: 'divider',
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-                    {(() => {
-                      const CategoryIcon = categoryIcons[skillGroup.category];
-                      return <CategoryIcon size={26} color={theme.palette.primary.main} aria-hidden />;
-                    })()}
-                    <Typography
-                      variant="h6"
-                      sx={{ fontWeight: 600, color: 'primary.main' }}
-                    >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1.5,
+                      flex: { md: '0 0 200px' },
+                      minHeight: 32,
+                    }}
+                  >
+                    <CategoryIcon size={24} color={theme.palette.primary.main} aria-hidden />
+                    <Typography variant="h6" sx={{ fontWeight: 600, color: 'primary.main' }}>
                       {skillGroup.category}
                     </Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, flex: 1, minWidth: 0 }}>
                     {skillGroup.skills.map((skill) => {
                       const { Icon, color } = getSkillIcon(skill);
                       return (
@@ -122,10 +126,10 @@ const Skills = () => {
                       );
                     })}
                   </Box>
-                </MotionPaper>
-              </Grid>
-            ))}
-          </Grid>
+                </MotionBox>
+              );
+            })}
+          </Paper>
         </MotionBox>
       </Container>
     </Box>

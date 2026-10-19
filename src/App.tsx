@@ -17,7 +17,7 @@ function App() {
     } catch {
       /* storage unavailable */
     }
-    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+    return false; // light mode by default
   });
 
   useEffect(() => {
